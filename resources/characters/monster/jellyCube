@@ -1,0 +1,47 @@
+// info ------------------------------------------------------------------------
+name    = "Jelly Cube"
+faction = Monster
+
+texture = [ jellyCubeRed jellyCubeGreen jellyCubeOrange ]
+
+
+// stats -----------------------------------------------------------------------
+xp    = 0
+level = 1
+
+healthCur = 100
+healthMax = 100
+manaCur   = 1
+manaMax   = 1
+weightCur = 0
+weightMax = 50
+
+strength     = 10
+intelligence = 10
+dexterity    = 10
+constitution = 10
+initiative   = 10
+
+
+// abilities -------------------------------------------------------------------
+fencing = 10
+sorcery = 10
+archery = 10
+
+spells = [ ]
+
+
+// inventory -------------------------------------------------------------------
+items = [ consumable/icedBun consumable/icedBun consumable/icedBun ]
+
+head      = null
+torso     = null
+gauntlets = null
+greaves   = null
+boots     = null
+
+ring      = null
+necklace  = null
+
+weapon    = null
+shield    = null

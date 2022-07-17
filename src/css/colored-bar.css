@@ -1,0 +1,14 @@
+GtkLevelBar {
+	-GtkLevelBar-min-block-height: 20px;
+}
+
+.level-bar.fill-block {
+	border-color: shade(@color, 0.85);
+	background-image: linear-gradient(to bottom, shade(@color, 1.15), @color 75%, shade(@color, 0.95));
+}
+
+.level-bar.fill-block.empty-fill-block {
+	border-width: 2px;
+	background-color: lighter(@color);
+	background-image: none;
+}
