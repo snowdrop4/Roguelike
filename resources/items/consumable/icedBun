@@ -1,0 +1,20 @@
+name        = "Iced Bun"
+description	= "A very sweet iced bun. Lovely."
+useWord	    = Eat
+texture     = [ icedBun ]
+
+healthCur = 1
+healthMax = 2
+manaCur   = 3
+manaMax   = 4
+weightCur = 5
+weightMax = 6
+
+strength     = 7
+intelligence = 8
+dexterity    = 9
+constitution = 10
+initiative   = 11
+
+uses = 12
+effectLength = 13
