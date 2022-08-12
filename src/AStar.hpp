@@ -95,20 +95,16 @@ class AStar
 		};
 		
 		int width, height;
-		
 		const std::vector<std::vector<T>> &map;
-		mutable std::vector<std::vector<std::weak_ptr<node>>> nodeMap;
 };
 
 template <typename T>
 AStar<T>::AStar(const std::vector<std::vector<T>> &map, int width, int height) :
 	width(width),
 	height(height),
-	map(map),
-	nodeMap(height)
+	map(map)
 {
-	for (auto &i : nodeMap)
-		i.resize(width);
+	
 }
 
 template <typename T>
@@ -119,9 +115,6 @@ void AStar<T>::resize(int width_A, int height_A)
 {
 	width = width_A;
 	height = height_A;
-	nodeMap.resize(height);
-	for (auto &i : nodeMap)
-		i.resize(width);
 }
 
 template <typename T>
@@ -139,6 +132,10 @@ AStar<T>::get_path(int startX, int startY, int endX, int endY,
 	// or if the end cell is invalid, we can just return
 	if ((startX == endX && startY == endY) || cell_is_valid(map[endY][endX], 0, 0) == false)
 		return result;
+	
+	// store all nodes, regardless of which set they are in
+	std::vector<std::vector<std::shared_ptr<node>>> nodeMap
+		(height, std::vector<std::shared_ptr<node>>(width, std::shared_ptr<node>()));
 	
 	// store nodes in the open set, ordered by the total cost (gCost + hCost)
 	std::multimap<int, std::shared_ptr<node>> openSet;
@@ -198,7 +195,7 @@ AStar<T>::get_path(int startX, int startY, int endX, int endY,
 			// if there's no valid entry in nodeMap for the cell, the cell
 			// cannot be in either the openSet or the closedSet; so add
 			// a new node to the open set for the cell:
-			if (nodeMap[newY][newX].expired() == true)
+			if (nodeMap[newY][newX] == nullptr)
 			{
 				int gCost = move_cost(map[newY][newX], w, q) + parentNode->gCost;
 				int hCost = dist_cost(newX, newY, endX, endY);
@@ -217,7 +214,7 @@ AStar<T>::get_path(int startX, int startY, int endX, int endY,
 				int gCost = move_cost(map[newY][newX], w, q) + parentNode->gCost;
 				int hCost = dist_cost(newX, newY, endX, endY);
 				
-				auto node = nodeMap[newY][newX].lock();
+				auto node = nodeMap[newY][newX];
 				
 				if (node->belongsTo == BelongsTo::openSet &&
 					gCost + hCost < node->gCost + node->hCost)
